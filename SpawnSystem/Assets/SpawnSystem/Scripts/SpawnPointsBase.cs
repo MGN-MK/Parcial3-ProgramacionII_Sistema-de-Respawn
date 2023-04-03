@@ -7,18 +7,18 @@ public enum SpawnType
     AREA, POINTS
 }
 
-public class SpawnPoints : MonoBehaviour
+public class SpawnPointsBase : MonoBehaviour
 {
     public SpawnType spawnType;
     public GameObject[] prfbs;
     public int objects;
     public float timeMin;
     public float timeMax;
-    public float valueX;
-    public float valueY;
-    public float valueZ;
     public float offset = 0.5f;
     public GameObject[] spawned;
+
+    [Header("Range for AreaSpawn")]
+    public Vector3 RangeSpawn;
 
     private int obj;
     private float time;
@@ -26,7 +26,7 @@ public class SpawnPoints : MonoBehaviour
     private bool posUsed;
     private GameObject choosed;
     private GameObject spawnedObject;
-    private GameObject[] spawnPoints;
+    public Transform[] spawnPoints;
     private Vector3 posSelected;
     private BoxCollider boxCollider;
 
@@ -34,11 +34,11 @@ public class SpawnPoints : MonoBehaviour
     void Start()
     {
         spawned = new GameObject[objects];
-        boxCollider = GetComponent<BoxCollider>();
-        boxCollider.enabled = false;
+        //boxCollider = GetComponent<BoxCollider>();
+        //boxCollider.enabled = false;
         if(spawnType == SpawnType.POINTS)
         {
-            spawnPoints = GetComponentsInChildren<GameObject>();
+            spawnPoints = GetComponentsInChildren<Transform>();
         }
 
         StartCoroutine(Spawn());
@@ -67,11 +67,9 @@ public class SpawnPoints : MonoBehaviour
                     time = Random.Range(timeMin, timeMax);
                     choosed = prfbs[Random.Range(0, prfbs.Length)];
 
-                    posSelected.x = Random.Range(-valueX, valueX);
-                    posSelected.y = Random.Range(-valueY, valueY);
-                    posSelected.z = Random.Range(-valueZ, valueZ);
+                    posSelected = new Vector3(Random.Range(-RangeSpawn.x, RangeSpawn.x), Random.Range(-RangeSpawn.y, RangeSpawn.y), Random.Range(-RangeSpawn.z, RangeSpawn.z)) + transform.position;
 
-                    CheckSpawnPosition(posSelected);
+                    //CheckSpawnPosition(posSelected);
                     NewObject(posSelected);
 
                     yield return new WaitForSeconds(time);
@@ -80,9 +78,9 @@ public class SpawnPoints : MonoBehaviour
                 case SpawnType.POINTS:
                     time = Random.Range(timeMin, timeMax);
                     choosed = prfbs[Random.Range(0, prfbs.Length)];
-                    posSelected = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+                    posSelected = spawnPoints[Random.Range(1, spawnPoints.Length)].position;
 
-                    CheckSpawnPosition(posSelected);
+                    //CheckSpawnPosition(posSelected);
                     NewObject(posSelected);
 
                     yield return new WaitForSeconds(time);
@@ -142,6 +140,9 @@ public class SpawnPoints : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, new Vector3(valueX * 2, valueY * 2, valueZ * 2));
+        if(spawnType == SpawnType.AREA)
+        {
+            Gizmos.DrawWireCube(transform.position, new Vector3(RangeSpawn.x * 2, RangeSpawn.y * 2, RangeSpawn.z * 2));
+        }
     }
 }
