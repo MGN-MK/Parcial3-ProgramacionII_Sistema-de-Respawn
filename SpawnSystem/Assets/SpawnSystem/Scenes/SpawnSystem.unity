@@ -765,9 +765,7 @@ MonoBehaviour:
   timeMax: 5
   offset: 1
   spawned: []
-  valueX: 2
-  valueY: 0.5
-  valueZ: 3
+  RangeSpawn: {x: 0, y: 0, z: 0}
   spawnPoints: []
 --- !u!1 &1256774676
 GameObject:
@@ -933,18 +931,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57cd042bd6c3a7544b7be836d24f5166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnAreaCreated: 1
-  spawnAreaTag:
-  - SpawnArea
+  spawnCreated: 0
+  spawnTag: []
   spawnPointsCreated: []
-  spawnAreaRandom: 1
-  spawnAreaCount: 3
-  valueX: 2
-  valueY: 0
-  valueZ: 1
+  spawnRandomMade: 1
+  spawnCount: 1
+  spawnArea: {x: 2, y: 3, z: 1}
   prfbsSpawn:
   - {fileID: 2767150770476832882, guid: e0026381b57db1545a18839e07e384d7, type: 3}
   spawnPointsRandom: []
+  spawnRandom: 0
+  spawnRandomCount: 0
+  spawnRandomArea: {x: 0, y: 0, z: 0}
+  spawnRandomAreaColor: {r: 0, g: 0, b: 0, a: 0}
+  spawnPointsGenerated: []
+  seed: Default
+  currentSeed: 0
 --- !u!4 &1374726986
 Transform:
   m_ObjectHideFlags: 0
@@ -1214,6 +1216,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4459864850019384740, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: unlimitedSprint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_Name
       value: FirstPersonController
@@ -1261,9 +1267,7 @@ MonoBehaviour:
   timeMax: 5
   offset: 1
   spawned: []
-  valueX: 5
-  valueY: 0.5
-  valueZ: 2
+  RangeSpawn: {x: 0, y: 0, z: 0}
   spawnPoints: []
 --- !u!4 &2059163377
 Transform:

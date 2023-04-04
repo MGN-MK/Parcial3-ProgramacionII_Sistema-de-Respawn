@@ -5,18 +5,28 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [Header("Already Created SpawnPoints")]
-    public bool spawnAreaCreated;
-    public string[] spawnAreaTag;
+    public bool spawnCreated;
+    public string[] spawnTag;
     public GameObject[] spawnPointsCreated;
 
-    [Header("Create Random SpawnPoints")]
-    public bool spawnAreaRandom;
-    public int spawnAreaCount;
-    public float valueX;
-    public float valueY;
-    public float valueZ;
+    [Header("Create Random Spawns Already Made")]
+    public bool spawnRandomMade;
+    public int spawnCount;
+    public Vector3 spawnArea;
     public GameObject[] prfbsSpawn;  
     public GameObject[] spawnPointsRandom;
+
+    [Header("Create Random SpawnAreas")]
+    public bool spawnRandom;
+    public int spawnRandomCount;
+    public Vector3 spawnRandomArea;
+    public Color spawnRandomAreaColor;
+    public GameObject[] spawnPointsGenerated;
+    private Gizmos spawnRandomGizmos;
+
+    [Header("Seed Management")]
+    public string seed = "Default";
+    public int currentSeed = 0;
 
     public GameObject[] allSpawnsGet
     {
@@ -37,9 +47,9 @@ public class SpawnManager : MonoBehaviour
 
     private void SetSpawners()
     {
-        if (spawnAreaCreated)
+        if (spawnCreated)
         {
-            foreach (var spawnTag in spawnAreaTag)
+            foreach (var spawnTag in spawnTag)
             {
                 var tagged = GameObject.FindGameObjectsWithTag(spawnTag);
                 spawnPointsCreated = new GameObject[tagged.Length];
@@ -52,17 +62,22 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        if (spawnAreaRandom)
+        if (spawnRandomMade)
         {
-            spawnPointsRandom = new GameObject[spawnAreaCount];
-            for (int i = 0; i < spawnAreaCount; i++)
+            spawnPointsRandom = new GameObject[spawnCount];
+            for (int i = 0; i < spawnCount; i++)
             {
                 spawn = prfbsSpawn[Random.Range(0, prfbsSpawn.Length)];
-                var pos = new Vector3(Random.Range(-valueX, valueX), Random.Range(-valueY, valueY), Random.Range(-valueZ, valueZ));
+                var pos = new Vector3(Random.Range(-spawnArea.x, spawnArea.x), Random.Range(-spawnArea.y, spawnArea.y), Random.Range(-spawnArea.z, spawnArea.z));
                 var spawner = Instantiate(spawn, pos, Quaternion.identity);
                 spawner.transform.SetParent(transform);
                 spawnPointsRandom[i] = spawner;
             }
+        }
+
+        if (spawnRandom)
+        {
+            spawnPointsGenerated = new GameObject[spawnRandomCount];
         }
     }
 
@@ -86,6 +101,6 @@ public class SpawnManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(transform.position, new Vector3(valueX * 2, valueY * 2, valueZ * 2));
+        Gizmos.DrawWireCube(transform.position, new Vector3(spawnArea.x * 2, spawnArea.y * 2, spawnArea.z * 2));
     }
 }
