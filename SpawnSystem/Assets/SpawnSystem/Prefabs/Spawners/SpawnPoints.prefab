@@ -83,12 +83,12 @@ MonoBehaviour:
   objects: 5
   timeMin: 1
   timeMax: 5
-  offset: 1
+  sizeOffsetPercentage: 75
   spawned: []
-  valueX: 0.1
-  valueY: 0.1
-  valueZ: 0.1
   spawnPoints: []
+  RangeSpawn: {x: 0, y: 0, z: 0}
+  seed: hjavhjva
+  currentSeed: 0
 --- !u!1 &2767150770514893746
 GameObject:
   m_ObjectHideFlags: 0

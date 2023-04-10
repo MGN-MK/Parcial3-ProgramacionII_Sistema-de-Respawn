@@ -54,7 +54,7 @@ MonoBehaviour:
   prfbsSpawn:
   - {fileID: 2767150770476832882, guid: e0026381b57db1545a18839e07e384d7, type: 3}
   - {fileID: 837086550465193059, guid: 28aaa38b3d0a4e04e8f9972470b600fd, type: 3}
-  seedSpawnsMaded: ycyctu
+  seedSpawnsMaded: 0
   currentSeedSpawnsMaded: 0
   spawnPointsRandom: []
   spawnRandom: 1
@@ -63,10 +63,12 @@ MonoBehaviour:
   objSpawnMin: 2
   spawnTimeMax: 1
   spawnTimeMin: 5
+  offSizeMax: 0
+  offSizeMin: 0
   spawnRandomArea: {x: 5, y: 0, z: 8}
   spawnRandomPos: {x: 10, y: 0, z: 8}
   spawnersBase:
   - {fileID: 837086550465193059, guid: 28aaa38b3d0a4e04e8f9972470b600fd, type: 3}
-  seedRandomSpawns: bhhjh
+  seedRandomSpawns: 0
   currentSeedRandomSpawns: 0
   spawnPointsGenerated: []

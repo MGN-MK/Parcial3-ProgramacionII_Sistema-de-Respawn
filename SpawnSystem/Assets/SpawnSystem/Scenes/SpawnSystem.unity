@@ -315,6 +315,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &995686138 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 995686138, guid: b2344ac82f997f447b2607c9a1f1292c, type: 3}
+  m_PrefabInstance: {fileID: 3776627698773032990}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1834513262
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,11 +494,11 @@ MonoBehaviour:
   objects: 8
   timeMin: 1
   timeMax: 5
-  offset: 1
+  sizeOffsetPercentage: 25
   spawned: []
   spawnPoints: []
   RangeSpawn: {x: 2, y: 1, z: 2}
-  seed: 0
+  seed: ahsvcjasv
   currentSeed: 0
 --- !u!4 &2059163377
 Transform:
@@ -517,7 +528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 837086550465193060, guid: 28aaa38b3d0a4e04e8f9972470b600fd, type: 3}
       propertyPath: seed
-      value: 0
+      value: aefeaba
       objectReference: {fileID: 0}
     - target: {fileID: 837086550465193061, guid: 28aaa38b3d0a4e04e8f9972470b600fd, type: 3}
       propertyPath: m_RootOrder
@@ -617,12 +628,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2042819048172377330, guid: ac41cb7c55c35174d88334d83bf9a6a7, type: 3}
+      propertyPath: offSizeMax
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042819048172377330, guid: ac41cb7c55c35174d88334d83bf9a6a7, type: 3}
+      propertyPath: offSizeMin
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042819048172377330, guid: ac41cb7c55c35174d88334d83bf9a6a7, type: 3}
       propertyPath: seedSpawnsMaded
-      value: 0
+      value: hbdfvhbsdf
       objectReference: {fileID: 0}
     - target: {fileID: 2042819048172377330, guid: ac41cb7c55c35174d88334d83bf9a6a7, type: 3}
       propertyPath: seedRandomSpawns
-      value: 0
+      value: vvdfdsv
       objectReference: {fileID: 0}
     - target: {fileID: 2042819048172377331, guid: ac41cb7c55c35174d88334d83bf9a6a7, type: 3}
       propertyPath: m_Name
@@ -725,5 +744,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3776627698163689437, guid: b2344ac82f997f447b2607c9a1f1292c, type: 3}
+      propertyPath: objSize
+      value: 
+      objectReference: {fileID: 995686138}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2344ac82f997f447b2607c9a1f1292c, type: 3}

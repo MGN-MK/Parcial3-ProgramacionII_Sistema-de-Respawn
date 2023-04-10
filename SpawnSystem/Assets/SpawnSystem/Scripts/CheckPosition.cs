@@ -5,7 +5,6 @@ using UnityEngine;
 public class CheckPosition : MonoBehaviour
 {
     public float offset = 1f;
-    public float speed;
     public string floortag;
     public Vector3 posSpawn;
 

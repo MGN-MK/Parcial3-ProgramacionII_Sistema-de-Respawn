@@ -50,9 +50,9 @@ MonoBehaviour:
   objects: 5
   timeMin: 1
   timeMax: 5
-  offset: 1
+  sizeOffsetPercentage: 50
   spawned: []
   spawnPoints: []
   RangeSpawn: {x: 5, y: 1, z: 5}
-  seed: arriba
+  seed: abvvfr
   currentSeed: 0

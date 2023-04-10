@@ -42,6 +42,7 @@ public class SpawnedStats : MonoBehaviour
     public TextMeshProUGUI idNumberObj;
     public TextMeshProUGUI objSpawnPos;
     public TextMeshProUGUI objPos;
+    public TextMeshProUGUI objSize;
 
     //Strings que almacenan el contenido inicial de los textMeshPro
     private string randomMadeSeedtext;
@@ -65,6 +66,7 @@ public class SpawnedStats : MonoBehaviour
     private string idObjtext;
     private string idNumberObjtext;
     private string objPostext;
+    private string objSizetext;
 
     private int idNumSpawn = 0;
     private int idNumPoint = 1;
@@ -102,6 +104,7 @@ public class SpawnedStats : MonoBehaviour
         spawnerPointNametext = spawnerPointName.text;
         spawnerPointIDtext = spawnerPointID.text;
         spawnerPointsPostext = spawnerPointsPos.text;
+        objSizetext = objSize.text;
 
         idObjtext = idObj.text;
         idNumberObjtext = idNumberObj.text;
@@ -262,5 +265,6 @@ public class SpawnedStats : MonoBehaviour
         idNumberObj.text = idNumberObjtext + idNumObj;
         objSpawnPos.text = objSpawnPostext + objSpawn.x.ToString("F2") + ", " + objSpawn.y.ToString("F2") + ", " + objSpawn.z.ToString("F2");
         objPos.text = objPostext + obj.transform.position.x.ToString("F2") + ", " + obj.transform.position.y.ToString("F2") + ", " + obj.transform.position.z.ToString("F2");
+        objSize.text = objSizetext + obj.transform.localScale.x.ToString("F2") + ", " + obj.transform.localScale.y.ToString("F2") + ", " + obj.transform.localScale.z.ToString("F2");
     }
 }

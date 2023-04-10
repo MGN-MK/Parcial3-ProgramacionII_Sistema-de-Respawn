@@ -14,7 +14,7 @@ public class SpawnPointsBase : MonoBehaviour
     public int objects;
     public float timeMin;
     public float timeMax;
-    public float offset = 0.5f;
+    public float sizeOffsetPercentage;
     public GameObject[] spawned;
     public Transform[] spawnPoints;
 
@@ -35,12 +35,12 @@ public class SpawnPointsBase : MonoBehaviour
     }
 
     private int obj = 0;
-    private int spawnPointCount;
     private float time;
     private bool spawning = true;
     private GameObject choosed;
     private GameObject spawnedObject;
     private Vector3 posSelected;
+    private Vector3 scale = new(1, 1, 1);
 
     // Start is called before the first frame update
     void Start()
@@ -100,9 +100,11 @@ public class SpawnPointsBase : MonoBehaviour
     }
 
     private void NewObject(Vector3 pos)
-    {        
+    {
+        scale += scale * Random.Range(-sizeOffsetPercentage, sizeOffsetPercentage) / 100;
         spawnedObject = Instantiate(choosed, pos, Quaternion.identity);
         spawnedObject.transform.SetParent(transform);
+        spawnedObject.transform.localScale = scale;
         spawned[obj] = spawnedObject;
         obj++;
         Debug.Log("New object spawned at " + pos);

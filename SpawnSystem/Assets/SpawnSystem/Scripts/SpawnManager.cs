@@ -25,6 +25,8 @@ public class SpawnManager : MonoBehaviour
     public int objSpawnMin;
     public float spawnTimeMax;
     public float spawnTimeMin;
+    public float offSizeMax;
+    public float offSizeMin;
     public Vector3 spawnRandomArea;
     public Vector3 spawnRandomPos;
     public GameObject[] spawnersBase;
@@ -99,7 +101,8 @@ public class SpawnManager : MonoBehaviour
                 spawner.GetComponent<SpawnPointsBase>().objects = Mathf.CeilToInt(Random.Range(objSpawnMin, objSpawnMax));
                 spawner.GetComponent<SpawnPointsBase>().timeMin = Mathf.CeilToInt(Random.Range(spawnTimeMin, spawnTimeMax));
                 spawner.GetComponent<SpawnPointsBase>().timeMax = Mathf.CeilToInt(Random.Range(spawnTimeMin, spawnTimeMax));
-                while(spawner.GetComponent<SpawnPointsBase>().timeMax <= spawner.GetComponent<SpawnPointsBase>().timeMin)
+                spawner.GetComponent<SpawnPointsBase>().sizeOffsetPercentage = Random.Range(offSizeMin, offSizeMax);
+                while (spawner.GetComponent<SpawnPointsBase>().timeMax <= spawner.GetComponent<SpawnPointsBase>().timeMin)
                 {
                     spawner.GetComponent<SpawnPointsBase>().timeMax += 1f;
                 }
