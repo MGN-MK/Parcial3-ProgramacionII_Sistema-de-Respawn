@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2042819048172377331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2042819048172377329}
+  - component: {fileID: 2042819048172377330}
+  m_Layer: 0
+  m_Name: SpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2042819048172377329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042819048172377331}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2042819048172377330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042819048172377331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57cd042bd6c3a7544b7be836d24f5166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCreated: 1
+  spawnTag:
+  - SpawnArea
+  spawnPointsCreated: []
+  spawnRandomMade: 1
+  spawnCount: 3
+  spawnArea: {x: 15, y: 0, z: 15}
+  prfbsSpawn:
+  - {fileID: 2767150770476832882, guid: e0026381b57db1545a18839e07e384d7, type: 3}
+  - {fileID: 837086550465193059, guid: 28aaa38b3d0a4e04e8f9972470b600fd, type: 3}
+  seedSpawnsMaded: ycyctu
+  currentSeedSpawnsMaded: 0
+  spawnPointsRandom: []
+  spawnRandom: 1
+  spawnRandomCount: 5
+  objSpawnMax: 10
+  objSpawnMin: 2
+  spawnTimeMax: 1
+  spawnTimeMin: 5
+  spawnRandomArea: {x: 5, y: 0, z: 8}
+  spawnRandomPos: {x: 10, y: 0, z: 8}
+  spawnersBase:
+  - {fileID: 837086550465193059, guid: 28aaa38b3d0a4e04e8f9972470b600fd, type: 3}
+  seedRandomSpawns: bhhjh
+  currentSeedRandomSpawns: 0
+  spawnPointsGenerated: []

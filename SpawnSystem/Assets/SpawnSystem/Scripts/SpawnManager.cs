@@ -13,21 +13,29 @@ public class SpawnManager : MonoBehaviour
     public bool spawnRandomMade;
     public int spawnCount;
     public Vector3 spawnArea;
-    public GameObject[] prfbsSpawn;  
+    public GameObject[] prfbsSpawn;
+    public string seedSpawnsMaded;
+    public int currentSeedSpawnsMaded = 0;
     public GameObject[] spawnPointsRandom;
 
     [Header("Create Random SpawnAreas")]
     public bool spawnRandom;
     public int spawnRandomCount;
+    public int objSpawnMax;
+    public int objSpawnMin;
+    public float spawnTimeMax;
+    public float spawnTimeMin;
     public Vector3 spawnRandomArea;
-    public Color spawnRandomAreaColor;
+    public Vector3 spawnRandomPos;
+    public GameObject[] spawnersBase;
+    public string seedRandomSpawns;
+    public int currentSeedRandomSpawns = 0;
     public GameObject[] spawnPointsGenerated;
-    private Gizmos spawnRandomGizmos;
-
-    [Header("Seed Management")]
-    public string seed = "Default";
-    public int currentSeed = 0;
-
+    
+    public int spawners
+    {
+        get { return b; }
+    }
     public GameObject[] allSpawnsGet
     {
         get => allSpawns;
@@ -41,6 +49,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GenerateRandomSeed();
         SetSpawners();
         SetAllSpawners();
     }
@@ -57,6 +66,7 @@ public class SpawnManager : MonoBehaviour
                 for (int i = 0; i < tagged.Length; i++)
                 {
                     spawnPointsCreated[a] = tagged[i];
+                    tagged[i].transform.SetParent(transform);
                     a++;
                 }
             }
@@ -64,6 +74,7 @@ public class SpawnManager : MonoBehaviour
 
         if (spawnRandomMade)
         {
+            Random.InitState(currentSeedSpawnsMaded);
             spawnPointsRandom = new GameObject[spawnCount];
             for (int i = 0; i < spawnCount; i++)
             {
@@ -77,13 +88,34 @@ public class SpawnManager : MonoBehaviour
 
         if (spawnRandom)
         {
+            Random.InitState(currentSeedRandomSpawns);
             spawnPointsGenerated = new GameObject[spawnRandomCount];
+
+            for (int i = 0; i < spawnRandomCount; i++)
+            {
+                var pos = new Vector3(Random.Range(-spawnRandomPos.x, spawnRandomPos.x), Random.Range(-spawnRandomPos.y, spawnRandomPos.y), Random.Range(-spawnRandomPos.z, spawnRandomPos.z));
+                var spawner = Instantiate(spawnersBase[Random.Range(0, spawnersBase.Length)], pos, Quaternion.identity);
+                spawner.GetComponent<SpawnPointsBase>().RangeSpawn = spawnRandomArea;
+                spawner.GetComponent<SpawnPointsBase>().objects = Mathf.CeilToInt(Random.Range(objSpawnMin, objSpawnMax));
+                spawner.GetComponent<SpawnPointsBase>().timeMin = Mathf.CeilToInt(Random.Range(spawnTimeMin, spawnTimeMax));
+                spawner.GetComponent<SpawnPointsBase>().timeMax = Mathf.CeilToInt(Random.Range(spawnTimeMin, spawnTimeMax));
+                while(spawner.GetComponent<SpawnPointsBase>().timeMax <= spawner.GetComponent<SpawnPointsBase>().timeMin)
+                {
+                    spawner.GetComponent<SpawnPointsBase>().timeMax += 1f;
+                }
+                if(spawner.GetComponent<SpawnPointsBase>().timeMax > spawnTimeMax)
+                {
+                    spawner.GetComponent<SpawnPointsBase>().timeMax = spawnTimeMax;
+                }
+                spawner.transform.SetParent(transform);
+                spawnPointsGenerated[i] = spawner;
+            }
         }
     }
 
     private void SetAllSpawners()
     {
-        allSpawns = new GameObject[spawnPointsCreated.Length + spawnPointsRandom.Length];
+        allSpawns = new GameObject[spawnPointsCreated.Length + spawnPointsRandom.Length + spawnPointsGenerated.Length];
 
         foreach (var spawnCreated in spawnPointsCreated)
         {
@@ -96,11 +128,37 @@ public class SpawnManager : MonoBehaviour
             allSpawns[b] = spawnRandom;
             b++;
         }
+        foreach(var spawnGenerated in spawnPointsGenerated)
+        {
+            allSpawns[b] = spawnGenerated;
+            b++;
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(transform.position, new Vector3(spawnArea.x * 2, spawnArea.y * 2, spawnArea.z * 2));
+    }
+
+    private void GenerateRandomSeed()
+    {
+        if(seedSpawnsMaded == null && spawnRandomMade)
+        {
+            int tempSeed = (int)System.DateTime.Now.Ticks;
+            seedSpawnsMaded = tempSeed.ToString();
+        }
+
+        currentSeedSpawnsMaded = seedSpawnsMaded.GetHashCode();
+        
+
+        if (seedRandomSpawns == null && spawnRandom)
+        {
+            int tempSeed = (int)System.DateTime.Now.Ticks;
+            seedRandomSpawns = tempSeed.ToString();
+        }
+
+        currentSeedRandomSpawns = seedRandomSpawns.GetHashCode();
+        
     }
 }

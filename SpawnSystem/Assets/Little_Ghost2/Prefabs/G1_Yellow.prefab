@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 466174982370493814}
   - component: {fileID: 466174982370493813}
   - component: {fileID: 466174982370493812}
+  - component: {fileID: 8117741583776180919}
   m_Layer: 0
   m_Name: G1_Yellow
   m_TagString: Untagged
@@ -64,6 +65,21 @@ CapsuleCollider:
   m_Height: 1.1666331
   m_Direction: 1
   m_Center: {x: 0.019093513, y: 0.56585956, z: -0.019093275}
+--- !u!114 &8117741583776180919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466174982370493815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 990e7f06921f3de45a96a1cf0942bbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: 1
+  speed: 15
+  floortag: Floor
 --- !u!1 &772726313271360357
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 25901200661331520}
   - component: {fileID: 25901200661331523}
   - component: {fileID: 25901200661331522}
+  - component: {fileID: 2271975081897184274}
   m_Layer: 0
   m_Name: G2_Red
   m_TagString: Untagged
@@ -64,6 +65,21 @@ CapsuleCollider:
   m_Height: 1.1666331
   m_Direction: 1
   m_Center: {x: 0.019093513, y: 0.56585956, z: -0.019093275}
+--- !u!114 &2271975081897184274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25901200661331521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 990e7f06921f3de45a96a1cf0942bbfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: 1
+  speed: 20
+  floortag: Floor
 --- !u!1 &656418654785517845
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,28 +10,71 @@ public class SpawnedStats : MonoBehaviour
 
     [Header("Buttons")]
     public KeyCode ShowAndHide = KeyCode.F;
+
     public KeyCode NextSpawner = KeyCode.I;
     public KeyCode PreviousSpawner = KeyCode.K;
+
+    public KeyCode NextSpawnPoint = KeyCode.U;
+    public KeyCode PreviousSpawnPoint = KeyCode.O;
+
     public KeyCode NextObj = KeyCode.J;
     public KeyCode PreviousObj = KeyCode.L;
 
     [Header("Texts")]
+    public TextMeshProUGUI randomMadeSeed;
+    public TextMeshProUGUI randomGeneratedSeed;
+    public TextMeshProUGUI spawnersNum;
+
     public TextMeshProUGUI idSpawn;
     public TextMeshProUGUI idNumberSpawn;
+    public TextMeshProUGUI spawnType;
+    public TextMeshProUGUI spawningTime;
+    public TextMeshProUGUI spawnedObjNumber;
+    public TextMeshProUGUI spawnerSize;
+    public TextMeshProUGUI spawnerPointsNumber;
+    public TextMeshProUGUI spawnerSeed;
+
+    public TextMeshProUGUI spawnerPointName;
+    public TextMeshProUGUI spawnerPointID;
+    public TextMeshProUGUI spawnerPointsPos;
+
     public TextMeshProUGUI idObj;
     public TextMeshProUGUI idNumberObj;
+    public TextMeshProUGUI objSpawnPos;
+    public TextMeshProUGUI objPos;
+
+    //Strings que almacenan el contenido inicial de los textMeshPro
+    private string randomMadeSeedtext;
+    private string randomGeneratedSeedtext;
+    private string spawnersNumtext;
 
     private string idSpawntext;
     private string idNumberSpawntext;
+    private string spawnTypetext;
+    private string spawningTimetext;
+    private string spawnedObjNumbertext;
+    private string spawnerSizetext;
+    private string spawnerPointsNumbertext;
+    private string spawnerSeedtext;
+
+    private string spawnerPointNametext;
+    private string spawnerPointIDtext;
+    private string objSpawnPostext;
+    private string spawnerPointsPostext;
+
     private string idObjtext;
     private string idNumberObjtext;
+    private string objPostext;
 
     private int idNumSpawn = 0;
+    private int idNumPoint = 1;
     private int idNumObj = 0;
     private bool isActive = false;
     private GameObject activeGreenArrow;
     private GameObject spawner;
+    private GameObject spawnerPoint;
     private GameObject obj;
+    private Vector3 objSpawn;
     private TextMeshProUGUI[] texts;
     private SpawnManager spawnManager;
 
@@ -42,10 +85,28 @@ public class SpawnedStats : MonoBehaviour
         spawnManager = FindAnyObjectByType<SpawnManager>();
         texts = GetComponentsInChildren<TextMeshProUGUI>();
 
+        randomMadeSeedtext = randomMadeSeed.text;
+        randomGeneratedSeedtext = randomGeneratedSeed.text;
+        spawnersNumtext = spawnersNum.text;
+
         idSpawntext = idSpawn.text;
         idNumberSpawntext = idNumberSpawn.text;
+        spawnTypetext = spawnType.text;
+        spawningTimetext = spawningTime.text;
+        spawnedObjNumbertext = spawnedObjNumber.text;
+        spawnerPointsNumbertext = spawnerPointsNumber.text;
+        spawnerSizetext = spawnerSize.text;
+        spawnerPointsNumbertext = spawnerPointsNumber.text;
+        spawnerSeedtext = spawnerSeed.text;
+
+        spawnerPointNametext = spawnerPointName.text;
+        spawnerPointIDtext = spawnerPointID.text;
+        spawnerPointsPostext = spawnerPointsPos.text;
+
         idObjtext = idObj.text;
         idNumberObjtext = idNumberObj.text;
+        objSpawnPostext = objSpawnPos.text;
+        objPostext = objPos.text;
 
         foreach (var text in texts)
         {
@@ -77,7 +138,7 @@ public class SpawnedStats : MonoBehaviour
 
             if (Input.GetKeyDown(NextSpawner))
             {
-                if (idNumSpawn == spawnManager.allSpawnsGet.Length - 1)
+                if (idNumSpawn == spawnManager.spawners - 1)
                 {
                     idNumSpawn = 0;
                 }
@@ -90,7 +151,7 @@ public class SpawnedStats : MonoBehaviour
             {
                 if(idNumSpawn == 0)
                 {
-                    idNumSpawn = spawnManager.allSpawnsGet.Length - 1;
+                    idNumSpawn = spawnManager.spawners - 1;
                 }
                 else
                 {
@@ -98,9 +159,35 @@ public class SpawnedStats : MonoBehaviour
                 }
             }
 
+            if (spawner.GetComponent<SpawnPointsBase>().spawnType == SpawnType.POINTS)
+            {
+                if (Input.GetKeyDown(NextSpawnPoint))
+                {
+                    if (idNumPoint == spawnManager.allSpawnsGet[idNumSpawn].GetComponent<SpawnPointsBase>().spawnPoints.Length - 1)
+                    {
+                        idNumPoint = 1;
+                    }
+                    else
+                    {
+                        idNumPoint++;
+                    }
+                }
+                if (Input.GetKeyDown(PreviousSpawnPoint))
+                {
+                    if (idNumPoint == 1)
+                    {
+                        idNumPoint = spawnManager.allSpawnsGet[idNumSpawn].GetComponent<SpawnPointsBase>().spawnPoints.Length - 1;
+                    }
+                    else
+                    {
+                        idNumPoint--;
+                    }
+                }
+            }
+
             if (Input.GetKeyDown(NextObj))
             {
-                if (idNumObj == spawnManager.allSpawnsGet[idNumSpawn].GetComponent<SpawnPointsBase>().spawned.Length - 1)
+                if (idNumObj == spawnManager.allSpawnsGet[idNumSpawn].GetComponent<SpawnPointsBase>().objNumber - 1)
                 {
                     idNumObj = 0;
                 }
@@ -113,7 +200,7 @@ public class SpawnedStats : MonoBehaviour
             {
                 if (idNumObj == 0)
                 {
-                    idNumObj = spawnManager.allSpawnsGet[idNumSpawn].GetComponent<SpawnPointsBase>().spawned.Length - 1;
+                    idNumObj = spawnManager.allSpawnsGet[idNumSpawn].GetComponent<SpawnPointsBase>().objNumber - 1;
                 }
                 else
                 {
@@ -127,8 +214,9 @@ public class SpawnedStats : MonoBehaviour
     {
         spawner = spawnManager.allSpawnsGet[idNumSpawn];
         obj = spawner.GetComponent<SpawnPointsBase>().spawned[idNumObj];
+        objSpawn = obj.GetComponent<CheckPosition>().posSpawn;
 
-        if(activeGreenArrow != null)
+        if (activeGreenArrow != null)
         {
             activeGreenArrow.transform.position = obj.transform.position + new Vector3(0f, 2f, 0f);
             activeGreenArrow.transform.LookAt(GameObject.FindGameObjectWithTag(PlayerTag).transform);
@@ -139,10 +227,40 @@ public class SpawnedStats : MonoBehaviour
             activeGreenArrow.transform.LookAt(GameObject.FindGameObjectWithTag(PlayerTag).transform);
         }
 
+        randomMadeSeed.text = randomMadeSeedtext + spawnManager.currentSeedSpawnsMaded;
+        randomGeneratedSeed.text = randomGeneratedSeedtext + spawnManager.currentSeedRandomSpawns;
+        spawnersNum.text = spawnersNumtext + spawnManager.allSpawnsGet.Length;
+
         idSpawn.text = idSpawntext + spawner.name;
         idNumberSpawn.text = idNumberSpawntext + idNumSpawn;
+        spawnType.text = spawnTypetext + spawner.GetComponent<SpawnPointsBase>().spawnType;
+        spawningTime.text = spawningTimetext + spawner.GetComponent<SpawnPointsBase>().timeMin + "s - " + spawner.GetComponent<SpawnPointsBase>().timeMax + "s (" + spawner.GetComponent<SpawnPointsBase>().timer + "s)";
+        spawnedObjNumber.text = spawnedObjNumbertext + spawner.GetComponent<SpawnPointsBase>().objNumber;
+        spawnerSeed.text = spawnerSeedtext + spawner.GetComponent<SpawnPointsBase>().currentSeed;
+        if (spawner.GetComponent<SpawnPointsBase>().spawnType == SpawnType.AREA)
+        {
+            spawnerSize.text = spawnerSizetext + spawner.GetComponent<SpawnPointsBase>().RangeSpawn * 2;
+            spawnerPointsNumber.text = spawnerPointsNumbertext + "Doesn't apply.";
+
+            spawnerPointName.text = spawnerPointNametext + "Doesn't apply.";
+            spawnerPointID.text = spawnerPointIDtext + "Doesn't apply.";
+            spawnerPointsPos.text = spawnerPointsPostext + "Doesn't apply.";
+        }
+        else if (spawner.GetComponent<SpawnPointsBase>().spawnType == SpawnType.POINTS)
+        {
+            Debug.Log(idNumPoint);
+            spawnerPoint = spawner.GetComponent<SpawnPointsBase>().spawnPoints[idNumPoint].gameObject;
+            spawnerSize.text = spawnerSizetext + "Doesn't apply.";
+            spawnerPointsNumber.text = spawnerPointsNumbertext + spawner.GetComponent<SpawnPointsBase>().spawnPoints.Length;
+
+            spawnerPointName.text = spawnerPointNametext + spawnerPoint.name;
+            spawnerPointID.text = spawnerPointIDtext + idNumPoint;
+            spawnerPointsPos.text = spawnerPointsPostext + spawnerPoint.transform.position.y.ToString("F2") + ", " + spawnerPoint.transform.position.z.ToString("F2");
+        }
 
         idObj.text = idObjtext + obj.name;
         idNumberObj.text = idNumberObjtext + idNumObj;
+        objSpawnPos.text = objSpawnPostext + objSpawn.x.ToString("F2") + ", " + objSpawn.y.ToString("F2") + ", " + objSpawn.z.ToString("F2");
+        objPos.text = objPostext + obj.transform.position.x.ToString("F2") + ", " + obj.transform.position.y.ToString("F2") + ", " + obj.transform.position.z.ToString("F2");
     }
 }
