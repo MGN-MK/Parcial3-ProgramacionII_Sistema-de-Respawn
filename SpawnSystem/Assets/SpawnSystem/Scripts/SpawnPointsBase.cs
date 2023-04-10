@@ -22,7 +22,7 @@ public class SpawnPointsBase : MonoBehaviour
     public Vector3 RangeSpawn;
 
     [Header("Seed Management")]
-    public string seed;
+    public string seed = null;
     public int currentSeed = 0;
 
     public int objNumber
@@ -119,9 +119,9 @@ public class SpawnPointsBase : MonoBehaviour
 
     private void GenerateRandomSeed()
     {
-        if (seed == null)
+        if (seed == null || seed == "0")
         {
-            int tempSeed = (int)System.DateTime.Now.Ticks;
+            int tempSeed = Random.Range(0, 999999999);
             seed = tempSeed.ToString();
         }
         currentSeed = seed.GetHashCode();

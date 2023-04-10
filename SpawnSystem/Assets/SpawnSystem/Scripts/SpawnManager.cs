@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     public int spawnCount;
     public Vector3 spawnArea;
     public GameObject[] prfbsSpawn;
-    public string seedSpawnsMaded;
+    public string seedSpawnsMaded = null;
     public int currentSeedSpawnsMaded = 0;
     public GameObject[] spawnPointsRandom;
 
@@ -28,7 +28,7 @@ public class SpawnManager : MonoBehaviour
     public Vector3 spawnRandomArea;
     public Vector3 spawnRandomPos;
     public GameObject[] spawnersBase;
-    public string seedRandomSpawns;
+    public string seedRandomSpawns = null;
     public int currentSeedRandomSpawns = 0;
     public GameObject[] spawnPointsGenerated;
     
@@ -143,18 +143,18 @@ public class SpawnManager : MonoBehaviour
 
     private void GenerateRandomSeed()
     {
-        if(seedSpawnsMaded == null && spawnRandomMade)
+        if(seedSpawnsMaded == null || seedSpawnsMaded == "0" && spawnRandomMade)
         {
-            int tempSeed = (int)System.DateTime.Now.Ticks;
+            int tempSeed = Random.Range(0, 999999999);
             seedSpawnsMaded = tempSeed.ToString();
         }
 
         currentSeedSpawnsMaded = seedSpawnsMaded.GetHashCode();
         
 
-        if (seedRandomSpawns == null && spawnRandom)
+        if (seedRandomSpawns == null || seedRandomSpawns == "0" && spawnRandom)
         {
-            int tempSeed = (int)System.DateTime.Now.Ticks;
+            int tempSeed = Random.Range(0, 999999999);
             seedRandomSpawns = tempSeed.ToString();
         }
 
